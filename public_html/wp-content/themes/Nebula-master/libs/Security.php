@@ -28,10 +28,10 @@ if ( !trait_exists('Security') ){
 
 		//Additional security headers.
 		//Test with https://securityheaders.io/
-		public function security_headers(){
-			header('x-frame-options: SAMEORIGIN');
-			header('X-XSS-Protection: 1; mode=block');
-			header('X-Content-Type-Options: nosniff');
+		 public function security_headers(){
+			 header('x-frame-options: SAMEORIGIN');
+			 header('X-XSS-Protection: 1; mode=block');
+			 header('X-Content-Type-Options: nosniff');
 
 			if ( is_ssl() ){
 				header('Strict-Transport-Security: max-age=' . YEAR_IN_SECONDS . '; includeSubDomains; preload'); //https://scotthelme.co.uk/hsts-the-missing-link-in-tls/
