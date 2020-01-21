@@ -72,5 +72,5 @@
 		</div><!--/row-->
 	</div><!--/container-->
 </section>
-
+<?php the_content(); ?>
 <?php get_footer(); ?>
