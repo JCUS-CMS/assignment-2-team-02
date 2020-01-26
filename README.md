@@ -89,6 +89,7 @@ deployment-mode - can be either `staging` or `production`
 Depending on the mode that you choose, it will deploy to respective server.
 
 Staging server link: http://staging.doctorsconnect.nyanyehtun.me/
+<br />
 Production server link: http://prod.doctorsconnect.nyanyehtun.me/
 
 <br/>
