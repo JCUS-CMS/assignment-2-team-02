@@ -77,6 +77,8 @@ There are two branches in use in this repo:<br/>
 
 **Following instructions will only work on Unix/Linux environments (If you are in Vagrant, you are already inside Linux environment already)**
 
+***Make sure you Copy `nyanyehtun-simon.pub` file under (your-home-dir)/.ssh folder before running the deployment script***
+
 ```
 cd deployment
 sh wordpress-deployment.sh <deployment-mode>
