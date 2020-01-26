@@ -1,167 +1,142 @@
-# VVV Custom site template
+# CMS: Assignmnet 2
+## Group 007
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/6fc9d45abb02454aa052771bda2d40ff)](https://www.codacy.com/gh/Varying-Vagrant-Vagrants/custom-site-template?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Varying-Vagrant-Vagrants/custom-site-template&amp;utm_campaign=Badge_Grade)
+------------------------------------
+### Group Members -
 
-For when you just need a simple dev site
+1. Nyan Ye Htun - nyanyehtun@my.jcu.edu.au
+2. Nurul - 
+3. Hung - 
+4. Benedict Ryan - 
+------------------------------------
 
-## Overview
+------------------------------------
+## Architecture Diagram
 
-This template will allow you to create a WordPress dev environment using only `vvv-custom.yml`.
+![AWS CMS Architecture Diagram](docs/AWS-CMS-Deployment.png)
+<p align="center">
+<img src="docs/AWS-CMS-Deployment.png">
+</p>
 
-The supported environments are:
 
-- A single site
-- A subdomain multisite
-- A subdirectory multisite
-
-The Nginx configuration for this site can be overriden by creating a `vvv-nginx-custom.conf`.
-
-## Configuration
-
-### The Minimum Required Configuration
-
-```yaml
-my-site:
-  repo: https://github.com/Varying-Vagrant-Vagrants/custom-site-template
-  hosts:
-    - my-site.test
-```
-
-| Setting    | Value        |
-|------------|--------------|
-| Domain     | my-site.test |
-| Site Title | my-site.test |
-| DB Name    | my-site      |
-| Site Type  | Single       |
-| WP Version | Latest       |
-
-### Minimal configuration with custom domain and WordPress Nightly
-
-```yaml
-my-site:
-  repo: https://github.com/Varying-Vagrant-Vagrants/custom-site-template
-  hosts:
-    - foo.test
-  custom:
-    wp_version: nightly
-```
-
-| Setting    | Value       |
-|------------|-------------|
-| Domain     | foo.test    |
-| Site Title | foo.test    |
-| DB Name    | my-site     |
-| Site Type  | Single      |
-| WP Version | Nightly     |
-
-### WordPress Multisite with Subdomains
-
-```yaml
-my-site:
-  repo: https://github.com/Varying-Vagrant-Vagrants/custom-site-template
-  hosts:
-    - multisite.test
-    - site1.multisite.test
-    - site2.multisite.test
-  custom:
-    wp_type: subdomain
+## Local Environment Setup -
+<br/><br/>
+**Setting up VVV in your local machine**
+<br/>
+*run the following commands:*
 
 ```
-| Setting    | Value               |
-|------------|---------------------|
-| Domain     | multisite.test      |
-| Site Title | multisite.test      |
-| DB Name    | my-site             |
-| Site Type  | Subdomain Multisite |
-
-### WordPress Multisite with Subdirectory
-
-```yaml
-my-site:
-  repo: https://github.com/Varying-Vagrant-Vagrants/custom-site-template
-  hosts:
-    - multisite.test
-  custom:
-    wp_type: subdirectory
+git clone https://github.com/Varying-Vagrant-Vagrants/VVV.git
+cd VVV
+vagrant plugin install vagrant-hostsupdater --local
+vagrant up
+```
+delete the **wordpress-one** project folder:
+```
+rm -rf www/wordpress-onecd 
+```
+Clone the current repo as wordpress project called **wordpress-one**:
+```
+cd  www
+git clone git@github.com:JCUS-CMS/assignment-2-team-02.git wordpress-one
+cd ..
 ```
 
-| Setting    | Value                  |
-|------------|------------------------|
-| Domain     | multisite.test         |
-| Site Title | multisite.test         |
-| DB Name    | my-site                |
-| Site Type  | Subdirectory Multisite |
+Now you have successfully setup workpress project on your Vagrant
 
-## Configuration Options
+<br/>
 
-```yaml
-hosts:
-    - foo.test
-    - bar.test
-    - baz.test
+**Note: Work on the WordPress Project called wordpress-one after cloning the repo**
+
+<br/>
+
+##Edit your wp-config.php and change the DB settings to:
+
+```
+  define( 'DB_NAME', '<YOUR DB_NAME>' );  
+  define( 'DB_USER', '<YOUR DB_USERNAME>' );  
+  define( 'DB_PASSWORD', '<YOUR DB_PASSWORD>' );  
+  define( 'DB_HOST', '<YOUR DB_SERVER IP>' );  
 ```
 
-Defines the domains and hosts for VVV to listen on.
-The first domain in this list is your sites primary domain.
+<br/>
+  
+**SETTING UP STAGING ON YOUR LOCAL ENVIRONMENT:**
 
-```yaml
-custom:
-    site_title: My Awesome Dev Site
+<br/>
+
+create a new branch and link it with your git remote staging <branch>:<br/>
+  
+```
+git checkout -b staging
 ```
 
-Defines the site title to be set upon installing WordPress.
-
-```yaml
-custom:
-    wp_version: 4.6.4
+now for easy pull and push upstream it to your origin/<branch>=staging.<br/>
+  
+```
+git branch --set-upstream-to=origin/staging staging
 ```
 
-Defines the WordPress version you wish to install. Valid values are:
+now pull the latest staging branch commits:<br/>
 
-- nightly
-- latest
-- a version number
-
-Older versions of WordPress will not run on PHP7, see this page on [how to change PHP version per site](https://varyingvagrantvagrants.org/docs/en-US/adding-a-new-site/changing-php-version/).
-
-```yaml
-custom:
-    wp_type: single
 ```
-Defines the type of install you are creating. Valid values are:
-
-- single
-- subdomain
-- subdirectory
-- none
-
-```yaml
-custom:
-    db_name: super_secet_db_name
+git pull
 ```
 
-Defines the DB name for the installation.
+<br/>
 
-Other parameters available:
+**CHANGING GIT BRANCH IN LOCAL ENVIRONMENT:**
 
-```yaml
-custom:
-    delete_default_plugins: true # Only on install of WordPress
-    install_test_content: true # Install test content. Only on install of WordPress
-    install_plugins: # Various way to install a plugin
-         - query-monitor
-         - https://github.com/crstauf/query-monitor-extend/archive/version/1.0.zip
-         - https://github.com/norcross/airplane-mode/archive/master.zip
-    install_themes: # Various way to install a theme
-         - understrap
-         - https://github.com/understrap/understrap-child.git
-    wpconfig_constants:
-         WP_DEBUG: true
-         WP_DEBUG_LOG: true
-         WP_DISABLE_FATAL_ERROR_HANDLER: true # To disable in WP 5.2 the FER mode
-    locale: it_IT
-    admin_user: admin # Only on install of WordPress
-    admin_password: password # Only on install of WordPress
-    admin_email: admin@local.test # Only on install of WordPress
-    live_url: http://example.com # Redirect any uploads not found locally to this domain
+<br/>
+
+this is the command to shift between branches in your local environment:<br/>
+
 ```
+git checkout <branch-name>
+```
+
+for example if you are in staging branch and want to shift to development branch:<br/>
+
+```
+git checkout development
+```
+
+<br/>
+
+**EXAMPLE - FOR STAGING**
+
+<br/>
+
+_For example lets say you have added some new feature to your development branch and now want to update it to staging branch
+Then follow the following command:<br/>
+You have to run the following command from your development branch -_<br/>
+<br/>
+Add the changed files to your git:
+
+```
+git add .
+```
+
+now commit the changes you have made:<br/>
+
+```
+git commit -m "<your-commit-message>"
+```
+
+now push the changes from development to staging :<br/>
+
+```
+git push origin staging
+```
+
+_**origin** = your remote git repo_
+<br/>
+_**staging** = your <branch> that you want to push to_
+
+<br/>
+  
+now check out the staging URL for changes:<br/>
+
+http://staging.cms-a2.ayushmank.sgedu.site/group-007/<br/>
+
+------------------------------------
