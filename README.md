@@ -5,19 +5,19 @@
 ### Group Members -
 
 1. Nyan Ye Htun - nyanyehtun@my.jcu.edu.au
-2. Nurul - 
-3. Hung - 
-4. Benedict Ryan - 
+2. Nurul Azzahra Putri - nurulazzahra.putri@my.jcu.edu.au
+3. Van Hung Nguyen - vanhung.nguyen2@my.jcu.edu.au
+4. Benedict Ryan - benedict.ryan@my.jcu.edu.au
 ------------------------------------
 
 ------------------------------------
 ## Architecture Diagram
 
-![AWS CMS Architecture Diagram](docs/AWS-CMS-Deployment.png)
 <p align="center">
 <img src="docs/AWS-CMS-Deployment.png">
 </p>
 
+<br/>
 
 ## Local Environment Setup -
 <br/><br/>
@@ -61,82 +61,36 @@ Now you have successfully setup workpress project on your Vagrant
 
 <br/>
   
-**SETTING UP STAGING ON YOUR LOCAL ENVIRONMENT:**
+**Branch setup in the Repo:**
 
 <br/>
 
-create a new branch and link it with your git remote staging <branch>:<br/>
+There are two branches in use in this repo:<br/>
   
 ```
-git checkout -b staging
+-> master (for production)
+-> development (for staging)
 ```
+<br/>
 
-now for easy pull and push upstream it to your origin/<branch>=staging.<br/>
-  
-```
-git branch --set-upstream-to=origin/staging staging
-```
+## **EXAMPLE - Deployment FOR STAGING**
 
-now pull the latest staging branch commits:<br/>
+**Following instructions will only work on Unix/Linux environments (If you are in Vagrant, you are already inside Linux environment already)**
 
 ```
-git pull
+cd deployment
+sh wordpress-deployment.sh <deployment-mode>
 ```
+
+deployment-mode - can be either `staging` or `production`
+
+Depending on the mode that you choose, it will deploy to respective server.
+
+Staging server link: http://staging.doctorsconnect.nyanyehtun.me/
+Production server link: http://prod.doctorsconnect.nyanyehtun.me/
 
 <br/>
 
-**CHANGING GIT BRANCH IN LOCAL ENVIRONMENT:**
 
-<br/>
-
-this is the command to shift between branches in your local environment:<br/>
-
-```
-git checkout <branch-name>
-```
-
-for example if you are in staging branch and want to shift to development branch:<br/>
-
-```
-git checkout development
-```
-
-<br/>
-
-**EXAMPLE - FOR STAGING**
-
-<br/>
-
-_For example lets say you have added some new feature to your development branch and now want to update it to staging branch
-Then follow the following command:<br/>
-You have to run the following command from your development branch -_<br/>
-<br/>
-Add the changed files to your git:
-
-```
-git add .
-```
-
-now commit the changes you have made:<br/>
-
-```
-git commit -m "<your-commit-message>"
-```
-
-now push the changes from development to staging :<br/>
-
-```
-git push origin staging
-```
-
-_**origin** = your remote git repo_
-<br/>
-_**staging** = your <branch> that you want to push to_
-
-<br/>
-  
-now check out the staging URL for changes:<br/>
-
-http://staging.cms-a2.ayushmank.sgedu.site/group-007/<br/>
 
 ------------------------------------
