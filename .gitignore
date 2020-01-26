@@ -2,3 +2,4 @@
 /log/
 /provision/vvv-nginx.conf
 .history
+.DS_Store
